@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Lifestyle Data</title>
+    <style>
+        body {
+            position: relative;
+            background-image: url('{{ url_for("static", filename="bg3.jpg") }}');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            font-family: 'Arial', sans-serif;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Overlay */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6); /* Dark overlay */
+            z-index: 1;
+        }
+
+        nav {
+            display: flex;
+            justify-content: flex-start;
+            gap: 10px;
+            padding: 10px 15px;
+            background-color: rgba(0, 0, 0, 0.9);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 3;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            padding: 8px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: #1ABC9C;
+        }
+
+        .main-content {
+            margin-top: 0; /* Remove extra space below the nav */
+            padding-top: 60px; /* Add padding to prevent overlap with fixed nav */
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: auto;
+            text-align: center;
+        }
+
+        .content {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 10px rgba(253, 252, 252, 0.8);
+            margin-bottom: 20px;
+            color: #000000;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+        }
+
+        th {
+            background-color: #1ABC9C;
+            color: white;
+            cursor: pointer;
+        }
+
+        td {
+            color: black; /* Cell text color changed to black */
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .filter {
+            margin-bottom: 20px;
+        }
+
+        .filter label {
+            margin-right: 10px;
+            font-size: 1rem;
+            color: #333;
+        }
+
+        .filter input {
+            padding: 5px;
+            font-size: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .error {
+            color: red;
+            margin-top: 10px;
+        }
+
+        .refresh-button {
+            margin-left: 10px;
+            padding: 5px 10px;
+            font-size: 1rem;
+            color: white;
+            background-color: #1ABC9C;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .refresh-button:hover {
+            background-color: #148F77;
+        }
+    </style>
+    <script>
+        function searchStudent() {
+            const studentID = document.getElementById("studentSearch").value.trim();
+            const table = document.getElementById("dataTable");
+            const rows = table.getElementsByTagName("tr");
+            let found = false;
+
+            for (let i = 1; i < rows.length; i++) {
+                const cells = rows[i].getElementsByTagName("td");
+                if (cells[0].textContent.trim() === studentID) {
+                    rows[i].style.display = "table-row";
+                    found = true;
+                } else {
+                    rows[i].style.display = "none";
+                }
+            }
+
+            const errorMessage = document.getElementById("errorMessage");
+            if (!found) {
+                errorMessage.textContent = "Student ID not found.";
+            } else {
+                errorMessage.textContent = "";
+            }
+        }
+
+        function refreshTable() {
+            const table = document.getElementById("dataTable");
+            const rows = table.getElementsByTagName("tr");
+
+            for (let i = 1; i < rows.length; i++) {
+                rows[i].style.display = "table-row";
+            }
+
+            document.getElementById("studentSearch").value = "";
+            document.getElementById("errorMessage").textContent = "";
+        }
+
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                searchStudent();
+            }
+        });
+    </script>
+</head>
+<body>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/about">About Data</a>
+        <a href="/data">Data</a>
+        <a href="/team">Team</a>
+    </nav>
+
+    <div class="main-content">
+        <div class="content">
+            <h1>Student Lifestyle Data</h1>
+            <div class="filter">
+                <label for="studentSearch">Search by Student ID:</label>
+                <input type="text" id="studentSearch" placeholder="Enter Student ID">
+                <button onclick="searchStudent()">Search</button>
+                <button class="refresh-button" onclick="refreshTable()">Refresh</button>
+                <div id="errorMessage" class="error"></div>
+            </div>
+            <table id="dataTable">
+                <tr>
+                    <th>Student_ID</th>
+                    <th>Study Hours</th>
+                    <th>Extracurricular Hours</th>
+                    <th>Sleep Hours</th>
+                    <th>Social Hours</th>
+                    <th>Physical Activity Hours</th>
+                    <th>GPA</th>
+                    <th>Stress Level</th>
+                </tr>
+                {% for row in data %}
+                <tr>
+                    <td>{{ row['Student_ID'] }}</td>
+                    <td>{{ row['Study_Hours_Per_Day'] }}</td>
+                    <td>{{ row['Extracurricular_Hours_Per_Day'] }}</td>
+                    <td>{{ row['Sleep_Hours_Per_Day'] }}</td>
+                    <td>{{ row['Social_Hours_Per_Day'] }}</td>
+                    <td>{{ row['Physical_Activity_Hours_Per_Day'] }}</td>
+                    <td>{{ row['GPA'] }}</td>
+                    <td>{{ row['Stress_Level'] }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</body>
+</html>

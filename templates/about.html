@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>About the Dataset</title>
+    <style>
+        body {
+            position: relative;
+            background-image: url('{{ url_for("static", filename="images/bg.jpg") }}');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            font-family: 'Arial', sans-serif;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Overlay */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6); /* Dark overlay */
+            z-index: 1;
+        }
+
+        nav {
+            display: flex;
+            justify-content: flex-start;
+            gap: 10px;
+            padding: 13px 15px;
+            background-color: rgba(0, 0, 0, 0.9);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 3;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            padding: 8px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: #1ABC9C;
+        }
+
+        .content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: auto;
+            margin-top: 60px; /* Adjusted for fixed nav height */
+            text-align: left;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8);
+            margin-bottom: 20px;
+        }
+
+        .variable-box {
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #333;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .variable-box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+        }
+
+        .variable-box strong {
+            display: block;
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            color: #1A2B3C;
+        }
+
+        .variable-box p {
+            margin: 0;
+            font-size: 1rem;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/about">About Data</a>
+        <a href="/data">Data</a>
+        <a href="/team">Team</a>
+    </nav>
+
+    <div class="content">
+        <h1>About the Dataset</h1>
+        
+        <div class="variable-box">
+            <strong>Source:</strong>
+            <p>Url: <a href="https://www.kaggle.com/datasets/steve1215rogg/student-lifestyle-dataset" target="_blank">https://www.kaggle.com/datasets/steve1215rogg/student-lifestyle-dataset</a></p>
+        </div>
+        <div class="variable-box">
+            <strong>Study_Hours_Per_Day:</strong>
+            <p>Average hours spent studying daily.</p>
+        </div>
+        <div class="variable-box">
+            <strong>Extracurricular_Hours_Per_Day:</strong>
+            <p>Average hours spent on extracurricular activities daily.</p>
+        </div>
+        <div class="variable-box">
+            <strong>Sleep_Hours_Per_Day:</strong>
+            <p>Average hours of sleep per day.</p>
+        </div>
+        <div class="variable-box">
+            <strong>Social_Hours_Per_Day:</strong>
+            <p>Average hours spent socializing daily.</p>
+        </div>
+        <div class="variable-box">
+            <strong>Physical_Activity_Hours_Per_Day:</strong>
+            <p>Average hours spent on physical activity daily.</p>
+        </div>
+        <div class="variable-box">
+            <strong>GPA:</strong>
+            <p>Student's GPA.</p>
+        </div>
+        <div class="variable-box">
+            <strong>Stress_Level:</strong>
+            <p>Stress level categorized as Low, Moderate, or High.</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Team</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='\static\styles.css') }}">
+    <style>
+        body {
+            position: relative;
+            background-image: url('{{ url_for("static", filename="images/bg3.jpg") }}');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            font-family: 'Arial', sans-serif;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Overlay */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6); /* Dark overlay */
+            z-index: 1;
+        }
+
+        nav {
+            display: flex;
+            justify-content: flex-start;
+            gap: 10px;
+            padding: 18px 15px;
+            background-color: rgba(0, 0, 0, 0.9);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 3;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            padding: 8px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: #1ABC9C;
+        }
+
+        .content {
+            position: relative;
+            z-index: 2; /* Content above the blur effect */
+            padding: 20px;
+            margin-top: 70px; /* Avoid overlap with fixed navigation */
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+            background: none;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8);
+        }
+
+        header p {
+            font-size: 1.2rem;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.8);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            z-index: 2;
+            color: #ccc;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+        }
+
+        .team-gallery {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            position: relative;
+            z-index: 2;
+            padding-bottom: 100px; /* Ensure footer doesn’t overlap */
+        }
+
+        .team-member {
+            width: 250px;
+            height: 400px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            perspective: 1000px; /* Enable 3D effect */
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+        }
+
+        .team-member .flip-box {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .team-member:hover .flip-box {
+            transform: rotateY(180deg);
+        }
+
+        .flip-box-front, .flip-box-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .flip-box-front {
+            background-image: url('{{ url_for("static", filename="images/bg3.jpg") }}');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .flip-box-back {
+            background-color: #1ABC9C;
+            color: white;
+            transform: rotateY(180deg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .team-member img {
+            width: 100%;
+            height: 100%;
+            border-radius: 0;
+            margin: 0;
+            object-fit: cover;
+        }
+
+        .team-member h3 {
+            margin: 10px 0;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/about">About Data</a>
+        <a href="/data">Data</a>
+        <a href="/team">Team</a>
+    </nav>
+
+    <div class="content">
+        <header>
+            <h1>Meet Our Team</h1>
+            <p>Get to know the amazing individuals who make up our team.</p>
+        </header>
+
+        <section class="team-gallery">
+            <div class="team-member">
+                <div class="flip-box">
+                    <div class="flip-box-front">
+                        <img src="{{ url_for('static', filename='images/chris.png') }}" alt="Team Member 1">
+                    </div>
+                    <div class="flip-box-back">
+                        <h3>CHRIS JIJI</h3>
+                        <p>St Clair College</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-member">
+                <div class="flip-box">
+                    <div class="flip-box-front">
+                        <img src="{{ url_for('static', filename='images/madhav.jpg') }}" alt="Team Member 2">
+                    </div>
+                    <div class="flip-box-back">
+                        <h3>MADHAV SUNIL</h3>
+                        <p>St Clair College</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-member">
+                <div class="flip-box">
+                    <div class="flip-box-front">
+                        <img src="{{ url_for('static', filename='images/jincy.png') }}" alt="Team Member 3">
+                    </div>
+                    <div class="flip-box-back">
+                        <h3>JINCY BOBUS</h3>
+                        <p>St Clair College</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-member">
+                <div class="flip-box">
+                    <div class="flip-box-front">
+                        <img src="{{ url_for('static', filename='images/rishav.jpg') }}" alt="Team Member 4">
+                    </div>
+                    <div class="flip-box-back">
+                        <h3>RAHUL RAJESH</h3>
+                        <p>St Clair College</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; GROUP 7</p>
+        </footer>
+    </div>
+</body>
+</html>

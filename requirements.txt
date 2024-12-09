@@ -1,0 +1,6 @@
+Library Requirements : 
+
+Flask==2.3.2
+pandas==2.0.3
+sqlite3==3.36.0
+
